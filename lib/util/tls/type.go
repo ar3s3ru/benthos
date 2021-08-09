@@ -4,6 +4,7 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"errors"
+	"fmt"
 	"io/ioutil"
 )
 
@@ -94,6 +95,8 @@ func (c *Config) Get() (*tls.Config, error) {
 		tlsConf.RootCAs = x509.NewCertPool()
 		tlsConf.RootCAs.AppendCertsFromPEM([]byte(c.RootCAs))
 	}
+
+	fmt.Println("[DEBUG] root_cas:", c.RootCAs)
 
 	for _, conf := range c.ClientCertificates {
 		cert, err := conf.Load()
